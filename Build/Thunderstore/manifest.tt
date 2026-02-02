@@ -7,7 +7,7 @@
  var version = new Version(VERSION);
 #>
 {
-    "name": "<#= NAME #>",
+    "name": "<#= System.Text.RegularExpressions.Regex.Replace(NAME, @"\s+", "_") #>",
     "description": "<#= DESCRIPTION #>",
     "version_number": "<#= $"{version.Major}.{version.Minor}.{version.Build}" #>",
     "website_url": "<#= URL #>",
