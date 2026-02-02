@@ -11,8 +11,8 @@
     <ProjectGuid>{B41725BB-6D4D-4A4E-BFE6-6B498FA182F5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Template</RootNamespace>
-    <AssemblyName>Template</AssemblyName>
+    <RootNamespace>A2.CleanLargeWoodGate</RootNamespace>
+    <AssemblyName>A2.CleanLargeWoodGate</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -34,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <DefineConstants>TRACE</DefineConstants>
@@ -55,6 +56,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Plugin.cs" />
+    <Compile Include="PluginConfig.cs" />
+    <Compile Include="Prefabs\Code\MountainKitWoodGate.cs" />
+    <Compile Include="Prefabs\Controller.cs" />
+    <Compile Include="Prefabs\Flags.cs" />
+    <Compile Include="Prefabs\PrefabState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -67,6 +73,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PluginInfo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Unity\GameObjectExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Build\Thunderstore\icon.png" />
@@ -74,6 +81,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>manifest.json</LastGenOutput>
     </Content>
+    <None Include=".editorconfig" />
     <None Include="Build\Thunderstore\Helpers\BepInExPackVersion.tt.part" />
     <None Include="Build\Thunderstore\Helpers\JotunnVersion.tt.part" />
     <Content Include="Properties\AssemblyInfo.tt">
@@ -124,6 +132,9 @@
   </Target>
   <Import Project="$(ProjectDir)Properties\AssemblyVersion.props" Condition="Exists('$(ProjectDir)Properties\AssemblyVersion.props')" />
   <Target Name="PostBuildPackage" AfterTargets="Build">
+    <!-- Delete existing package directory if it exists -->
+    <Message Text="Cleaning package directory: $(ProjectDir)Build\Package" Importance="High" />
+    <RemoveDir Directories="$(ProjectDir)Build\Package" Condition="Exists('$(ProjectDir)Build\Package')" />
     <!-- Create the target directory if it doesn't exist -->
     <Message Text="Preparing package: $(ProjectDir)Build\Package\plugins" Importance="High" />
     <MakeDir Directories="$(ProjectDir)Build\Package" Condition="!Exists('$(ProjectDir)Build\Package')" />
