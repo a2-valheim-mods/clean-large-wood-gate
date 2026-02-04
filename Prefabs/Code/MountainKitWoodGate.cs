@@ -13,8 +13,6 @@ namespace A2.CleanLargeWoodGate.Prefabs.Code
         {
             try
             {
-                if (PluginConfig.DisableBloodOnMountainKitWoodGate is null) return false;
-                if (!PluginConfig.DisableBloodOnMountainKitWoodGate.Value) return true;
                 if (Flags.MountainKitWoodGate != PrefabState.ToModify) return false;
 #if DEBUG
                 Jotunn.Logger.LogInfo($"{nameof(MountainKitWoodGate)}.{nameof(Modify)}: modifying state of the prefab {PrefabName}");
