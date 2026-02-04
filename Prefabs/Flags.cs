@@ -11,20 +11,30 @@
 
         private static bool Evaluate(ref PrefabState state, bool config)
         {
+            // disabling is turned on in config, so prefab should be modified
             if (config)
             {
                 state = PrefabState.ToModify;
                 return true;
             }
 
+            // disabling is turned off in config, so prefab should be restored to it's original state
             if (state == PrefabState.ToRestore)
             {
-                return false;
+                // already marked to restore
+                return true;
             }
             if (state == PrefabState.Modified)
             {
+                // requires restoration
                 state = PrefabState.ToRestore;
                 return true;
+            }
+            if (state == PrefabState.ToModify)
+            {
+                // not yet modifed, mark as restored
+                state = PrefabState.Restored;
+                return false;
             }
 
             state = PrefabState.Unknown;

@@ -1,6 +1,7 @@
 ﻿using A2.CleanLargeWoodGate.Prefabs.Code;
 using Jotunn.Managers;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace A2.CleanLargeWoodGate.Prefabs
@@ -26,16 +27,33 @@ namespace A2.CleanLargeWoodGate.Prefabs
             }
             return prefabs;
         }
-        private static bool Modify(Dictionary<string, GameObject> prefabs)
+        private static Dictionary<string, GameObject[]> FindClones()
+        {
+            var allTransforms = Object.FindObjectsByType<Transform>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            return allTransforms
+                .Select(t => t.gameObject)
+                .Where(go =>
+                {
+                    var originalName = go.name.EndsWith("(Clone)")
+                        ? go.name.Substring(0, go.name.Length - 7)
+                        : go.name;
+                    return Names.Contains(originalName);
+                })
+                .GroupBy(go => go.name.EndsWith("(Clone)")
+                        ? go.name.Substring(0, go.name.Length - 7)
+                        : go.name)
+                .ToDictionary(g => g.Key, g => g.ToArray());
+        }
+        private static bool Modify(Dictionary<string, GameObject> prefabs, Dictionary<string, GameObject[]> clones)
         {
             var result = true;
-            result = MountainKitWoodGate.Modify(prefabs) && result;
+            result = MountainKitWoodGate.Modify(prefabs, clones) && result;
             return result;
         }
-        private static bool Restore(Dictionary<string, GameObject> prefabs)
+        private static bool Restore(Dictionary<string, GameObject> prefabs, Dictionary<string, GameObject[]> clones)
         {
             var result = true;
-            result = MountainKitWoodGate.Restore(prefabs) && result;
+            result = MountainKitWoodGate.Restore(prefabs, clones) && result;
             return result;
         }
 
@@ -50,9 +68,10 @@ namespace A2.CleanLargeWoodGate.Prefabs
             {
                 return false;
             }
+            var clones = FindClones();
             var result = false;
-            result = Restore(prefabs) || result;
-            result = Modify(prefabs) || result;
+            result = Restore(prefabs, clones) || result;
+            result = Modify(prefabs, clones) || result;
             return result;
         }
     }

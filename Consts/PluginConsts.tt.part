@@ -1,6 +1,6 @@
 ﻿<#
 #pragma warning disable 0168, 0219
-var VERSION = "1.0.0.0";
+var VERSION = "1.1.0.0";
 var PREFIX = "A2";
 var NAME = "Clean Large Wood Gate";
 var DESCRIPTION = "Removes blood from MountainKit_wood_gate.";

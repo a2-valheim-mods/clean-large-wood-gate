@@ -61,6 +61,7 @@
     <Compile Include="Prefabs\Controller.cs" />
     <Compile Include="Prefabs\Flags.cs" />
     <Compile Include="Prefabs\PrefabState.cs" />
+    <Compile Include="Prefabs\PrefabTools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
