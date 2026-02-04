@@ -27,9 +27,6 @@ namespace A2.CleanLargeWoodGate
             return configEntry;
         }
 
-        private static void OnSettingsChanged(object sender, System.EventArgs e)
-        {
-            Controller.Update();
-        }
+        private static void OnSettingsChanged(object sender, System.EventArgs e) => Controller.Update();
     }
 }
