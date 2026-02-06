@@ -83,8 +83,7 @@
       <LastGenOutput>manifest.json</LastGenOutput>
     </Content>
     <None Include=".editorconfig" />
-    <None Include="Build\Thunderstore\Helpers\BepInExPackVersion.tt.part" />
-    <None Include="Build\Thunderstore\Helpers\JotunnVersion.tt.part" />
+    <None Include="Build\Thunderstore\Helpers\GetPackageLatestVersion.tt.part" />
     <Content Include="Properties\AssemblyInfo.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AssemblyInfo.cs</LastGenOutput>
